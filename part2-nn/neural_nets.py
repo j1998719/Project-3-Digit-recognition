@@ -89,12 +89,13 @@ class NeuralNetwork():
     def predict(self, x1, x2):
 
         input_values = np.matrix([[x1],[x2]])
+        vec_relu = np.vectorize(rectified_linear_unit)
 
         # Compute output for a single input(should be same as the forward propagation in training)
-        # hidden_layer_weighted_input = # TODO
-        # hidden_layer_activation = # TODO
-        # output = # TODO
-        # activated_output = # TODO
+        hidden_layer_weighted_input = self.input_to_hidden_weights*input_values + self.biases# TODO
+        hidden_layer_activation = vec_relu(hidden_layer_weighted_input)# TODO
+        output = self.hidden_to_output_weights * hidden_layer_activation# TODO
+        activated_output = output_layer_activation(output)# TODO
 
         return activated_output.item()
 
