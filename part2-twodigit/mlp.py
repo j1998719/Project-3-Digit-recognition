@@ -17,14 +17,18 @@ class MLP(nn.Module):
 
     def __init__(self, input_dimension):
         super(MLP, self).__init__()
-        self.flatten = Flatten()
+        self.fllatten = nn.Flatten()
+        self.nn1 = nn.Linear(input_dimension, 64)
+        self.nn2 = nn.Linear(64, 10)
+        self.nn3 = nn.Linear(64, 10)
         # TODO initialize model layers here
 
     def forward(self, x):
-        xf = self.flatten(x)
-
+        xf = self.fllatten(x)
+        xf = F.relu( self.nn1(xf ))
+        out_first_digit = F.log_softmax(F.relu( self.nn2(xf )), dim=1)
+        out_second_digit = F.log_softmax(F.relu( self.nn3(xf )), dim=1)
         # TODO use model layers to predict the two digits
-
         return out_first_digit, out_second_digit
 
 def main():
